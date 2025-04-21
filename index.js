@@ -1,4 +1,7 @@
 require('dotenv').config();
+process.env.TZ = 'Asia/Ho_Chi_Minh';
+console.log(`⏰ Thiết lập múi giờ: ${process.env.TZ}`);
+console.log(`⏰ Thời gian hiện tại: ${new Date().toLocaleString('vi-VN')}`);
 const admin = require("firebase-admin");
 const express = require("express");
 const app = express();
@@ -289,6 +292,7 @@ async function checkWateringTimer(watering) {
 
         // Lấy thời gian hiện tại và chuyển đổi thành số phút
         const now = new Date();
+        console.log(`⏰ Thời gian kiểm tra hiện tại: ${now.toLocaleString('vi-VN')}`);
         const currentHours = now.getHours();
         const currentMinutes = now.getMinutes();
         const currentInMinutes = currentHours * 60 + currentMinutes;
@@ -381,6 +385,7 @@ function scheduleNextTimerCheck(watering) {
     try {
         // Lấy thời gian hiện tại
         const now = new Date();
+        console.log(`⏰ Thời gian lập lịch hiện tại: ${now.toLocaleString('vi-VN')}`);
         const currentHours = now.getHours();
         const currentMinutes = now.getMinutes();
         const currentSeconds = now.getSeconds();
