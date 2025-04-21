@@ -321,8 +321,7 @@ async function checkWateringTimer(watering) {
             isInWateringTime = shouldBeWatering;
 
             // Xác định trạng thái và thông báo dựa vào kết quả kiểm tra
-            let newStatus = shouldBeWatering ? 1 : 0;  // 1: BẬT, 0
-            // : TẮT
+            let newStatus = shouldBeWatering ? 1 : 0;  // 1: BẬT, 0: TẮT
 
             const startTimeStr = formatTimeStr(startInMinutes);
             const endTimeStr = formatTimeStr(endInMinutes);
