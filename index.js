@@ -23,16 +23,6 @@ try {
 // PHẦN 1: KHỞI TẠO KẾT NỐI FIREBASE
 //======================================================
 
-// Nhập các thư viện cần thiết
-// const admin = require("firebase-admin");
-// const serviceAccount = require("./serviceAccountKey.json");
-
-// // Khởi tạo ứng dụng Firebase với thông tin xác thực
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL: "https://weather2-b2bc4-default-rtdb.firebaseio.com"
-// });
-
 // Khởi tạo ứng dụng Firebase với thông tin xác thực
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -272,8 +262,8 @@ async function checkWateringTimer(watering) {
 
     try {
         // Kiểm tra xem hôm nay có thuộc lịch hẹn tưới không
-        if (!isScheduledDay(watering.schedule_days)) {
-            console.log("Hôm nay không thuộc lịch tưới:", watering.schedule_days);
+        if (!isScheduledDay(watering.repeat)) {
+            console.log("Hôm nay không thuộc lịch tưới:", watering.repeat);
 
             // Nếu hôm nay không thuộc lịch hẹn tưới và hệ thống đang bật
             if (watering.status === 1 && isInWateringTime) {
@@ -331,14 +321,15 @@ async function checkWateringTimer(watering) {
             isInWateringTime = shouldBeWatering;
 
             // Xác định trạng thái và thông báo dựa vào kết quả kiểm tra
-            let newStatus = shouldBeWatering ? 1 : 0;  // 1: BẬT, 0: TẮT
+            let newStatus = shouldBeWatering ? 1 : 0;  // 1: BẬT, 0
+            // : TẮT
 
             const startTimeStr = formatTimeStr(startInMinutes);
             const endTimeStr = formatTimeStr(endInMinutes);
 
             // Lấy thông tin về lịch theo thứ để hiển thị
-            const scheduleInfo = watering.schedule_days
-                ? ` theo lịch (${watering.schedule_days || "Hàng ngày"})`
+            const scheduleInfo = watering.repeat
+                ? ` theo lịch (${watering.repeat || "Hàng ngày"})`
                 : " hàng ngày";
 
             let message = shouldBeWatering
@@ -723,7 +714,7 @@ async function handleWateringConfigChange(snapshot) {
         status_timer: watering.status_timer,
         timer_start: watering.timer_start,
         timer_end: watering.timer_end,
-        schedule_days: watering.schedule_days
+        repeat: watering.repeat
     });
 
     // Lấy dữ liệu thời tiết hiện tại
