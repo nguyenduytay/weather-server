@@ -801,6 +801,28 @@ setupTimerChecker();
     }
 })();
 
+// Hàm tự ping để tránh Render ngủ
+function setupSelfPing() {
+    const SERVER_URL = process.env.SERVER_URL || `https://${process.env.RENDER_EXTERNAL_HOSTNAME || 'localhost:' + (process.env.PORT || 3000)}`;
+    console.log(`🔄 Thiết lập tự ping đến: ${SERVER_URL}`);
+
+    // Ping mỗi 14 phút (dưới ngưỡng 15 phút của Render)
+    const PING_INTERVAL = 14 * 60 * 1000;
+
+    setInterval(() => {
+        https.get(SERVER_URL, (res) => {
+            console.log(`✅ Ping thành công: ${res.statusCode}`);
+        }).on('error', (err) => {
+            console.error(`❌ Ping thất bại: ${err.message}`);
+        });
+    }, PING_INTERVAL);
+
+    console.log(`⏰ Đã thiết lập tự ping mỗi ${PING_INTERVAL / 60000} phút`);
+}
+
+// Bắt đầu tự ping
+setupSelfPing();
+
 // Xử lý port cho Render
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
