@@ -87,13 +87,13 @@ function startPeriodicNotification(checkIntervalMinutes = config.notification.ch
     // Dừng interval cũ nếu đang chạy
     stopPeriodicNotification();
 
+    // Kiểm tra ngay lập tức lần đầu
+    sendPeriodicNotification();
+
     // Chạy kiểm tra mỗi phút (hoặc theo khoảng thời gian được chỉ định)
     periodicNotificationInterval = setInterval(sendPeriodicNotification, checkIntervalMinutes * 60 * 1000);
 
     console.log(`📊 Đã bắt đầu hệ thống thông báo thời tiết định kỳ (kiểm tra mỗi ${checkIntervalMinutes} phút)`);
-
-    // Kiểm tra ngay lập tức lần đầu
-    sendPeriodicNotification();
 
     return true;
 }
