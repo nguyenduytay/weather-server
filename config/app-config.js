@@ -9,7 +9,7 @@ module.exports = {
         password: process.env.MQTT_PASSWORD || "Tay2004x8",
         clientId: 'watering-system-backend-pbl',
         topics: {
-            wateringStatus: 'watering/status'
+            wateringStatus: 'weather/status_pump'
         }
     },
 
