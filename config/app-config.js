@@ -9,7 +9,8 @@ module.exports = {
         password: process.env.MQTT_PASSWORD || "Tay2004x8",
         clientId: 'watering-system-backend-pbl',
         topics: {
-            wateringStatus: 'weather/status_pump'
+            wateringStatus: 'weather/status_pump',
+            weatherAiControl: 'weather/ai_watering_control'
         }
     },
 
@@ -18,7 +19,8 @@ module.exports = {
         watering: "/watering",
         weatherData: "/weather_data",
         warnings: "/local_warnings",
-        notification: "/local_notification"
+        notification: "/local_notification",
+        weather_24h: "/weather_24h",
     },
 
     // Cấu hình hẹn giờ
