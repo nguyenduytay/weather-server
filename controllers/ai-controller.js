@@ -179,7 +179,7 @@ function watchRainPercent() {
 
                 // Sắp xếp timestamps theo thứ tự thời gian (mới nhất cuối)
                 timestamps.sort((a, b) => new Date(a) - new Date(b));
-                const latestTimestamp = timestamps[timestamps.length - 1];
+                const latestTimestamp = timestamps[0];
                 const latestData = allData[latestTimestamp];
 
                 console.log(`📊 Timestamp mới nhất: ${latestTimestamp}`);
